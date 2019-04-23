@@ -48,13 +48,14 @@ create table ChiTietChuyenBay
 	MaVe varchar(10) foreign key references Ve(MaVe),
 	MaCB varchar(10) foreign key references ChuyenBay(MaCB),
 	TenHK nvarchar(50),
-	CMND char(12),
+	CMND varchar(12),
 	SDT varchar(11),
 	Email varchar(30),
 	LoaiKH bit,			-- 0 là trẻ em, 1 là người lớn
 	Gia money,			-- Giá vé vip hay thường, có thêm hành lý hay không, lấy giá gốc từ table ChuyenBay
 	constraint PK_MaVe primary key(MaVe)
 )
+
 
 create table DangNhap
 (
