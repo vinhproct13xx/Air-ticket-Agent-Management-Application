@@ -51,7 +51,7 @@ create table ChiTietChuyenBay
 	CMND varchar(12),
 	SDT varchar(11),
 	Email varchar(30),
-	LoaiKH bit,			-- 0 là trẻ em, 1 là người lớn
+	LoaiHK bit,			-- 0 là trẻ em, 1 là người lớn
 	Gia money,			-- Giá vé vip hay thường, có thêm hành lý hay không, lấy giá gốc từ table ChuyenBay
 	constraint PK_MaVe primary key(MaVe)
 )
