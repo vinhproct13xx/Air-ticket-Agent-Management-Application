@@ -5,32 +5,36 @@
  */
 package Controller;
 
+import Model.LichSuBanVeDAO;
 import Model.LichSuBanVe;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.javafx.scene.control.skin.TableViewSkin;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.sql.SQLException;
+import  javafx.scene.control.Button;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
+import javafx.scene.Node;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
-import model.*;
 
 /**
  * FXML Controller class
@@ -40,8 +44,6 @@ import model.*;
 public class LichSuBanVeController implements Initializable {
 
     @FXML
-    private TableView<LichSuBanVe> tbHocSinh;
-    @FXML
     private TableColumn<LichSuBanVe,String> colMaVe;
     @FXML
     private TableColumn<LichSuBanVe,String> colMaCB;
@@ -50,12 +52,18 @@ public class LichSuBanVeController implements Initializable {
     @FXML
     private TableColumn<LichSuBanVe,Integer> colGiaVe;
     @FXML
-    private TableColumn<?,?> colChiTiet;
+    private TableColumn<LichSuBanVe,Void> colChiTiet;
     @FXML
     private JFXButton btnTim;
     @FXML
     private JFXTextField tfTim;
     ObservableList<LichSuBanVe> listBanVe = FXCollections.observableArrayList();
+    private LichSuBanVeDAO ls;
+    @FXML
+    private TableView<LichSuBanVe> tbBanVe;
+    private AnchorPane rootPane;
+    @FXML
+    private JFXButton btnShow;
 
     /**
      * Initializes the controller class.
@@ -63,10 +71,125 @@ public class LichSuBanVeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        try{
+        LoadData();
+        }catch (SQLException e){
+            System.out.println("Can't load data in initialize");
+        }
+        addButtonToTable();
     }    
+    // Load dữ liệu lên table
+    void LoadData()throws SQLException{
+        ls = new LichSuBanVeDAO();
+        listBanVe=ls.getlistLichSu();
+        setCellValueFactory();
+        tbBanVe.setItems(listBanVe);
+    }
+    
+    //Gán giá trị vào cho cột
+    void setCellValueFactory(){
+        colMaVe.setCellValueFactory(new PropertyValueFactory<LichSuBanVe, String>("MaVe"));
+        colMaCB.setCellValueFactory(new PropertyValueFactory<LichSuBanVe, String>("MaCB"));
+        colTen.setCellValueFactory(new PropertyValueFactory<LichSuBanVe, String>("TenHK"));
+        colGiaVe.setCellValueFactory(new PropertyValueFactory<LichSuBanVe, Integer>("Gia"));
+    }
+    private static Method columnToFitMethod;
+
+    static {
+        try {
+            columnToFitMethod = TableViewSkin.class.getDeclaredMethod("resizeColumnToFitContent", TableColumn.class, int.class);
+            columnToFitMethod.setAccessible(true);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
+    // Hiệu chỉnh độ dài cột
+    public static void autoFitTable(TableView tableView) {
+        tableView.getItems().addListener(new ListChangeListener<Object>() {
+            @Override
+            public void onChanged(ListChangeListener.Change<?> c) {
+                for (Object column : tableView.getColumns()) {
+                    try {
+                        columnToFitMethod.invoke(tableView.getSkin(), column, -1);
+
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+    
+    public FXMLLoader createPage(AnchorPane pane, String loc) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(loc));
+        try {
+            pane = fxmlLoader.load();
+            rootPane.getChildren().add((Node) pane);
+            GeneralFuntion.FitChildContent(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return fxmlLoader;
+    }
+    
+    private void addButtonToTable(){
+        Callback<TableColumn<LichSuBanVe,Void>,TableCell<LichSuBanVe,Void>> cellFactory = new Callback<TableColumn<LichSuBanVe, Void>, TableCell<LichSuBanVe, Void>>() {
+        @Override
+        public TableCell<LichSuBanVe, Void> call(final TableColumn<LichSuBanVe, Void> param) {
+                final TableCell<LichSuBanVe, Void> cell = new TableCell<LichSuBanVe, Void>() {
+                    private final Button btn = new Button("Xem chi tiết");
+                    {
+                        btn.setOnAction((ActionEvent event) -> {
+                            AnchorPane paneChiTietChuyenBay = new AnchorPane();
+                            FXMLLoader fXMLLoader = MainController.getMainController().createPage(paneChiTietChuyenBay, "/View/ChiTietVe.fxml");
+                            fXMLLoader.<ChiTietVeController>getController().loadtfMaVe(v_MaVe);
+                            fXMLLoader.<ChiTietVeController>getController().loadtfMaCB(v_MaCB);
+                            paneChiTietChuyenBay.getChildren().add(paneChiTietChuyenBay); 
+                            GeneralFuntion.FitChildContent(paneChiTietChuyenBay);
+                        });
+                    }
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+        }
+        };
+        colChiTiet.setCellFactory(cellFactory);
+    }
+    
+    
+    @FXML
+    private void btnTimClick(ActionEvent event) throws SQLException {
+        ls = new LichSuBanVeDAO();
+        listBanVe=ls.getlistTim(tfTim.getText());
+        setCellValueFactory();
+        tbBanVe.setItems(listBanVe);
+    }
+    public String v_MaVe;
+    public String v_MaCB;
+    public String getMaVe(){
+        return this.v_MaVe;
+    }
+    @FXML
+    private void tbBanVeClick(MouseEvent e) {
+        if(MouseButton.PRIMARY == e.getButton() && e.getClickCount() == 1){
+        LichSuBanVe ls1 = tbBanVe.getSelectionModel().getSelectedItem();
+        v_MaVe=ls1.getMaVe();
+        v_MaCB=ls1.getMaCB();
+        }
+    }
 
     @FXML
-    private void btnTimClick(ActionEvent event) {
+    private void btnShowClick(ActionEvent event) throws SQLException{
+        LoadData();
     }
+
     
 }

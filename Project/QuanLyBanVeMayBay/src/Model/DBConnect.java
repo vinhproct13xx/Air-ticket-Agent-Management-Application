@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package Model;
 
 import com.sun.rowset.CachedRowSetImpl;
 import java.lang.reflect.Array;
@@ -93,6 +93,4 @@ public class DBConnect {
        dbDisconnect();
        return crs;
         }
-    
-    
 }

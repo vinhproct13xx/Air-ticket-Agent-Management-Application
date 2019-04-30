@@ -5,6 +5,8 @@
  */
 package Model;
 
+import javafx.scene.control.Button;
+
 /**
  *
  * @author win10pro
@@ -17,8 +19,9 @@ public class LichSuBanVe {
     private String SDT;
     private boolean LoaiHK;
     private int Gia;
+    private Button btnChiTiet;
 
-    public LichSuBanVe(String MaVe, String MaCB, String TenHK, String CMND, String SDT, boolean LoaiHK, int Gia) {
+    public LichSuBanVe(String MaVe, String MaCB, String TenHK, String CMND, String SDT, boolean LoaiHK, int Gia,Button btnChiTiet) {
         this.MaVe = MaVe;
         this.MaCB = MaCB;
         this.TenHK = TenHK;
@@ -26,6 +29,7 @@ public class LichSuBanVe {
         this.SDT = SDT;
         this.LoaiHK=LoaiHK;
         this.Gia=Gia;
+        this.btnChiTiet=btnChiTiet;
     }
 
     @Override
@@ -57,6 +61,9 @@ public class LichSuBanVe {
     public void setGia(int Gia){
         this.Gia=Gia;
     }
+    public void setChiTiet(Button btnChiTiet){
+        this.btnChiTiet=btnChiTiet;
+    }
     public String getMaVe(){
         return MaVe;
     }
@@ -77,5 +84,8 @@ public class LichSuBanVe {
     }
     public int getGia(){
         return Gia;
+    }
+    public Button getChiTiet(){
+        return btnChiTiet;
     }
     }

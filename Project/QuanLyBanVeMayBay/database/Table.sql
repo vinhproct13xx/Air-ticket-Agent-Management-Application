@@ -26,14 +26,13 @@ create table ChuyenBay
 	SanBayDen	varchar(10),		-- Lấy mã sân bay
 	SoGheVipTrong int,				-- Số ghế Vip còn trống
 	SoGheThuongTrong int,			-- Số ghế thường còn trống
-	NgayKhoiHanh smalldatetime,		-- Ngày khởi hành
+	NgayKhoiHanh date,		-- Ngày khởi hành
 	ThoiGianBay int,				-- Thời gian bay khoảng bao lâu
 	GioKhoiHanh time,				-- Thời gian khởi hành
 	GiaVe money,					-- Giá vé gốc loại thường
 	constraint FK_Di foreign key(SanBayDi)  references SanBay(MaSB),
 	constraint FK_Den foreign key(SanBayDen)  references SanBay(MaSB),
 )
-
 
 create table Ve
 (
