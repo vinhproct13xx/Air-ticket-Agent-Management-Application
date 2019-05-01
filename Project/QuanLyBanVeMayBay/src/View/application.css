@@ -6,6 +6,16 @@
 .button{
     -fx-text-alignment: left;
 }
+.button_primary{
+    -fx-background-color: blue;
+    -fx-font: white;
+}
+
+.jfx-button {
+     -jfx-button-type: FLAT;
+     -fx-background-color: white;
+     -fx-text-fill: black;
+}
 .glyph-icon{
     -fx-font-family: "Material Design Icons";
     -fx-font-size: 50px;
