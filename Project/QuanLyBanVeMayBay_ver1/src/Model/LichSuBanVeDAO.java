@@ -18,6 +18,6 @@ import javax.naming.spi.DirStateFactory;
 public class LichSuBanVeDAO {
     private LichSuBanVe createLichSu(ResultSet rs){
         LichSuBanVe ls = new LichSuBanVe();
-        
+        return ls;
     }
 }
