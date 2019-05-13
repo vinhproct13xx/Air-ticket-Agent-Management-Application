@@ -68,7 +68,8 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void btnDatChuyenBayClick(ActionEvent event) {
+    private void btnDatChuyenBayClick(ActionEvent event) throws IOException {
+        loadDatVeMayBay(event);
     }
 
     @FXML
@@ -102,6 +103,12 @@ public class MainController implements Initializable {
     
     public void loadThongKe(ActionEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/View/ThongKe.fxml"));
+        rootPane.getChildren().setAll(pane);
+        GeneralFuntion.FitChildContent(pane);
+    }
+    
+    public void loadDatVeMayBay(ActionEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/View/DatVeMayBay.fxml"));
         rootPane.getChildren().setAll(pane);
         GeneralFuntion.FitChildContent(pane);
     }
