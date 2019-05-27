@@ -17,14 +17,16 @@ public class DatVeMayBay {
     private int SLNguoiLon;
     private int SLTreEM;
     private int LoaiVe;
-    
-    public DatVeMayBay(String DiemKhoiHanh, String DiemDen, LocalDate Ngay, int SLNguoiLon, int SLTreEM, int LoaiVe) {
+    private int isKhuHoi;
+
+    public DatVeMayBay(String DiemKhoiHanh, String DiemDen, LocalDate Ngay, int SLNguoiLon, int SLTreEM, int LoaiVe, int isKhuHoi) {
         this.DiemKhoiHanh = DiemKhoiHanh;
         this.DiemDen = DiemDen;
         this.Ngay = Ngay;
         this.SLNguoiLon = SLNguoiLon;
         this.SLTreEM = SLTreEM;
         this.LoaiVe = LoaiVe;
+        this.isKhuHoi = isKhuHoi;
     }
 
     public String getDiemKhoiHanh() {
@@ -74,7 +76,17 @@ public class DatVeMayBay {
     public void setLoaiVe(int LoaiVe) {
         this.LoaiVe = LoaiVe;
     }
-        
+
+    public int getIsKhuHoi() {
+        return isKhuHoi;
+    }
+
+    public void setIsKhuHoi(int isKhuHoi) {
+        this.isKhuHoi = isKhuHoi;
+    }
+   
+    
+    
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return super.clone(); //To change body of generated methods, choose Tools | Templates.
