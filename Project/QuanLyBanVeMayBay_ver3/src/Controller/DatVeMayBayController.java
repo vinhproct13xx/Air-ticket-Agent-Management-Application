@@ -69,6 +69,13 @@ public class DatVeMayBayController implements Initializable {
 
     @FXML
     public void handleTimChuyenBay(ActionEvent event) throws IOException{
+        
+            if ( cbBoxKhoiHanh.getValue() ==  null  ||  cbBoxDiemDen.getValue() ==  null ||  dPNgayDi.getValue() ==  null ||  cbBoxLoaiGhe.getValue() ==  null ) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Lỗi rồi ");
+                alert.setContentText("phải điền dủ thông tin :) ");
+                alert.showAndWait();
+            }
              DatVeMayBay dvmb = new DatVeMayBay();
 
             dvmb.setDiemKhoiHanh(cbBoxKhoiHanh.getValue());
@@ -96,6 +103,7 @@ public class DatVeMayBayController implements Initializable {
 //                    alert.showAndWait();
 //                }
 //           
+        
             AnchorPane paneDanhSachChuyenBay = new AnchorPane();
 
       

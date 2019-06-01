@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DanhSachChuyenBayController">
+<AnchorPane id="AnchorPane" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DanhSachChuyenBayController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -21,13 +21,13 @@
                   </Label>
                </children>
             </Pane>
-            <TableView fx:id="table" layoutY="118.0" prefHeight="171.0" prefWidth="600.0">
+            <TableView fx:id="table" layoutY="118.0" prefHeight="177.0" prefWidth="600.0">
               <columns>
-                  <TableColumn fx:id="hangmaybayColumn" minWidth="0.0" prefWidth="165.0" text="Hang May Bay" />
-                <TableColumn fx:id="giobayColumn" prefWidth="150.0" text="Gio khoi hanh" />
-                <TableColumn fx:id="thoigianbayColumn" minWidth="0.0" prefWidth="159.0" text="Thoi gian bay" />
-                  <TableColumn fx:id="giatienColumn" minWidth="0.0" prefWidth="125.0" text="Gia" />
-                  <TableColumn fx:id="giobayColumn1" prefWidth="150.0" text="Gio khoi hanh" />
+                  <TableColumn fx:id="maVeColumn" prefWidth="54.0" text="Ma Ve" />
+                  <TableColumn fx:id="hangmaybayColumn" minWidth="0.0" prefWidth="159.0" text="Hang May Bay" />
+                <TableColumn fx:id="thoigianbayColumn" maxWidth="128.0" minWidth="0.0" prefWidth="126.0" text="Thoi gian bay" />
+                  <TableColumn fx:id="giobayColumn" prefWidth="159.0" text="Gio khoi hanh" />
+                  <TableColumn fx:id="giatienColumn" minWidth="0.0" prefWidth="101.0" text="Gia" />
               </columns>
             </TableView>
             <Pane layoutY="59.0" prefHeight="59.0" prefWidth="600.0" style="-fx-background-color: white;">
@@ -36,7 +36,7 @@
                   <Label fx:id="DiaDiem" layoutX="28.0" layoutY="30.0" text="HCM(SGN) - HN (NAN)" />
                   <Label fx:id="NgayDiLabel" layoutX="28.0" layoutY="8.0" text="Ngay di" />
                   <Label layoutX="240.0" layoutY="8.0" text="Ngay ve" />
-                  <Label fx:id="NgayVeLabel" layoutX="300.0" layoutY="8.0" text="Thu 6, 10/5/2019" />
+                  <Label fx:id="NgayVeLabel" layoutX="300.0" layoutY="8.0" text="khong" />
                </children>
             </Pane>
          </children>

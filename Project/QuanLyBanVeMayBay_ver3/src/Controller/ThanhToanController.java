@@ -105,6 +105,7 @@ public class ThanhToanController implements Initializable {
     private int SLNgL;
     private int SLTreEm;
     private int SoLuongVeInt;
+    private int SoLuongVeInt1;
     private int GiaVeInt;
      private int GiaVeInt1;
     private String MaCBString;
@@ -131,6 +132,12 @@ public class ThanhToanController implements Initializable {
     }    
     @FXML
     public void handleThanhToan(ActionEvent event) throws SQLException{
+//         if ( this.HoTenLienHe.getText() == null ||  ) {
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Lỗi rồi ");
+//                alert.setContentText("Vui lòng chọn chuyến bay :) ");
+//                alert.showAndWait();
+//            }
         int hanhLy = this.cbBoxHanhLy.getValue();
         int hanhLy1 = this.cbBoxHanhLy1.getValue();
         double tong;
@@ -149,6 +156,7 @@ public class ThanhToanController implements Initializable {
         tt.setLoaiVeInt(LoaiVeInt);
         tt.setMaCBString(MaCBString);
         tt.setMaVeString(MaVeString);
+        tt.setSove(SoLuongVeInt);
 //        tt.setCmnd(MaCBString);
         //tt.setEmail(1);
         //tt.setSdt(1);
@@ -156,25 +164,24 @@ public class ThanhToanController implements Initializable {
             tt1.setTienve(tienve1);
             tt1.setKhachhangString(KhachhangString);
             tt1.setLoaiVeInt(LoaiVeInt);
-            tt1.setMaCBString(MaCBString);
+            tt1.setMaCBString(MaCBString1);
             tt1.setMaVeString(MaVeString1);
+            tt1.setSove(SoLuongVeInt1);
         }
-        System.out.println("Controller.ThanhToanController.handleThanhToan()"+tienve);
-                System.out.println("Controller.ThanhToanController.handleThanhToan()"+tienve1);
-
 //        tt.setCmnd(MaCBString);
         //tt.setEmail(1);
         //tt.setSdt(1);
+        thanhToanDAO.LuuThongTinVeVoDB(tt);
         if (this.MaCBString1 != null) {
-            thanhToanDAO.LuuThongTinVeVoDB(tt);
             thanhToanDAO.LuuThongTinVeVoDB(tt1);
-        } else {
-            thanhToanDAO.LuuThongTinVeVoDB(tt);
-        }
+        } 
         
+        
+        
+//        lấy mã vé ra rồi bỏ vô mảng lặp nhét vô next 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-        alert.setContentText("ten khach hang: "+KhachhangString+"\n"+"tong tien phai thanh toan: "+this.TongTien);
+        alert.setContentText("ten khach hang: "+KhachhangString+"\n"+"tong tien phai thanh toan: "+tong);
         alert.show();
     }
     @FXML
@@ -249,7 +256,6 @@ public class ThanhToanController implements Initializable {
         GiaVeInt = GiaVe;
         this.MaCBString=MaCBString;
         this.MaVeString = MaVeString;
-        System.out.println("Controller.ThanhToanController.ChuyenDuLieu()"+MaVeString);
         this.HanhLy = this.cbBoxHanhLy.getValue();
         
         this.tongtien = (thanhtien(LoaiVe, SoNL, SoTreEm, GiaVe,HanhLy));
@@ -273,8 +279,9 @@ public class ThanhToanController implements Initializable {
         
         this.SLNgL = SoNL;
         this.SLTreEm=SoTreEm;
-        this.SoLuongVeInt=2*(SoNL+SoTreEm);
-        this.SoVe.setText(String.valueOf(SoLuongVeInt ));
+        this.SoLuongVeInt=(SoNL+SoTreEm);
+        this.SoLuongVeInt1=(SoNL+SoTreEm);
+        this.SoVe.setText(String.valueOf(SoLuongVeInt*2));
         
         this.HanhLy = this.cbBoxHanhLy.getValue();
         this.HanhLy1 = this.cbBoxHanhLy1.getValue();
@@ -292,8 +299,7 @@ public class ThanhToanController implements Initializable {
         this.MaCBString1=MaCBString1;
         this.MaVeString = MaVeString;
         this.MaVeString1 = MaVeString1;
-                System.out.println("Controller.ThanhToanController.ChuyenDuLieuKhuHoi()"+MaVeString);
-        System.out.println("Controller.ThanhToanController.ChuyenDuLieuKhuHoi()"+MaVeString1);
+
         this.TongTien.setText(Double.toString(tongtien));
 
     }

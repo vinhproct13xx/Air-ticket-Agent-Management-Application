@@ -14,6 +14,7 @@ public class ThanhToan {
 //    private String GioKhoiHanhString;
 //    private int SoLuongVeInt;
     private double tienve;
+    private int sove;
     private String MaCBString;
         private String MaVeString;
 
@@ -24,9 +25,10 @@ public class ThanhToan {
     public ThanhToan() {
     }
 
-    public ThanhToan(int LoaiVeInt, double tienve, String MaCBString, String MaVeString, String KhachhangString, String cmnd, String sdt, String email) {
+    public ThanhToan(int LoaiVeInt, double tienve, int sove, String MaCBString, String MaVeString, String KhachhangString, String cmnd, String sdt, String email) {
         this.LoaiVeInt = LoaiVeInt;
         this.tienve = tienve;
+        this.sove = sove;
         this.MaCBString = MaCBString;
         this.MaVeString = MaVeString;
         this.KhachhangString = KhachhangString;
@@ -49,6 +51,14 @@ public class ThanhToan {
 
     public void setTienve(double tienve) {
         this.tienve = tienve;
+    }
+
+    public int getSove() {
+        return sove;
+    }
+
+    public void setSove(int sove) {
+        this.sove = sove;
     }
 
     public String getMaCBString() {

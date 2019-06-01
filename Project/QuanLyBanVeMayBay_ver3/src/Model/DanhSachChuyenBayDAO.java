@@ -40,14 +40,16 @@ public class DanhSachChuyenBayDAO {
     public ObservableList<DanhSachChuyenBay> getDanhSachChuyenBays(String DiemKH,String DiemDen,int sv, int loaive, LocalDate ngaykh) throws SQLException{
         
         ObservableList<DanhSachChuyenBay> ds = FXCollections.observableArrayList();
+//        ObservableList<String> maVeList = FXCollections.observableArrayList();
+        
         String sql="exec danhsachchuyenbay '"+DiemKH+"','"+DiemDen+"',"+sv+","+loaive+",'"+ngaykh+"'";
         System.out.println(sql);
         try {
             ResultSet rs = DBConnect.dbExcute(sql);
             while (rs.next()) {
                 DanhSachChuyenBay chuyenBay = createDanhSachChuyenBay(rs);
-                     System.out.println("Model.DanhSachChuyenBayDAO.getDanhSachChuyenBays()"+rs.getString("MaVe"));
                 ds.add(chuyenBay);
+//                maVeList.add(rs.getString("MaVe"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DanhSachChuyenBayDAO.class.getName()).log(Level.SEVERE, null, ex);

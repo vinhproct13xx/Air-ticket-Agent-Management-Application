@@ -14,12 +14,19 @@ import java.sql.SQLException;
  */
 public class ThanhToanDAO {
     public void LuuThongTinVeVoDB(ThanhToan tt)throws SQLException{
-
-            String sql = "insert into ChiTietChuyenBay(MaVe,MaCB,TenHK,LoaiHK,Gia) values("+tt.getMaVeString()+","+tt.getMaCBString()+","+"'"+tt.getKhachhangString()+"'"+","+tt.getLoaiVeInt()+","+tt.getTienve()+")";
-            System.out.println("Model.ThanhToanDAO.LuuThongTinVeVoDB()"+sql);
+            String macb = tt.getMaCBString();
+            int sv = tt.getSove();
+            int loaiVe = tt.getLoaiVeInt();
+            double tienve = tt.getTienve();
+            String tenhk = tt.getKhachhangString();
+            String cmnd = tt.getCmnd();
+            String sdt = tt.getSdt();
+            String email = tt.getEmail();
+            String sql = "exec insertVe "+"'"+macb+"'"+","+sv+","+loaiVe+","+tenhk+","+loaiVe+","+tienve;
             try{
-            ResultSet rs;
-            rs = DBConnect.dbExcute(sql);
+            int rs;
+            rs = DBConnect.dbExcuteQuery(sql);
+   
             }catch (SQLException e){
                 System.err.println("Can't insert ticket!");
             }

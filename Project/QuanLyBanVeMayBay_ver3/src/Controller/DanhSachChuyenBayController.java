@@ -21,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -63,8 +64,10 @@ public class DanhSachChuyenBayController implements Initializable {
     private  TableColumn<DanhSachChuyenBay, String> thoigianbayColumn;
      @FXML
     private  TableColumn<DanhSachChuyenBay, String> giatienColumn;
-      @FXML
+    @FXML
     private  TableColumn<DanhSachChuyenBay, String> hangmaybayColumn;
+    @FXML
+    private  TableColumn<DanhSachChuyenBay, String> maVeColumn;
       
     ObservableList<DanhSachChuyenBay> dscb = FXCollections.observableArrayList();
 
@@ -160,10 +163,17 @@ public class DanhSachChuyenBayController implements Initializable {
         giobayColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, String>("GioKH"));
         thoigianbayColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, String>("TgBay"));
         giatienColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, String>("GiaVe"));
+        maVeColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, String>("MaVe"));
     }
 
     @FXML
     public void handleNext(ActionEvent event) throws IOException{
+         if ( ctChuyenBay.getMaVe() == null ) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Lỗi rồi ");
+                alert.setContentText("phải điền dủ thông tin :) ");
+                alert.showAndWait();
+            }
         ctChuyenBay = table.getSelectionModel().getSelectedItem();
 //        ctChuyenBay.setGioKH(GioKH);
 //        ctChuyenBay.setMaHMB(HangMBString);
