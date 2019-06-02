@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3817faf4-41a5-4f0f-8389-e53fca54212e">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3817faf4-41a5-4f0f-8389-e53fca54212e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="qlbvmb"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
@@ -49,17 +49,18 @@ GROUP by LoaiHK]]>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="linechar"/>
 		<queryString language="SQL">
-			<![CDATA[SELECT MONTH(cb.NgayKhoiHanh) as thang,ct.LoaiHK, SUM(ct.Gia) as tongtien 
-from ChiTietChuyenBay ct, ChuyenBay cb
-WHERE ct.MaCB = cb.MaCB
-GROUP by MONTH(cb.NgayKhoiHanh), ct.LoaiHK
-ORDER by thang]]>
+			<![CDATA[SELECT MONTH(cb.NgayKhoiHanh) as thang, ve.LoaiVe, SUM(ct.Gia) as tongtien 
+from ChiTietChuyenBay ct, ChuyenBay cb,Ve
+WHERE ct.MaCB = cb.MaCB and Ve.MaVe = ct.MaVe
+GROUP by MONTH(cb.NgayKhoiHanh), ve.LoaiVe
+ORDER by thang
+]]>
 		</queryString>
 		<field name="thang" class="java.lang.Integer">
 			<property name="com.jaspersoft.studio.field.label" value="thang"/>
 		</field>
-		<field name="LoaiHK" class="java.lang.Boolean">
-			<property name="com.jaspersoft.studio.field.label" value="LoaiHK"/>
+		<field name="LoaiVe" class="java.lang.Boolean">
+			<property name="com.jaspersoft.studio.field.label" value="LoaiVe"/>
 		</field>
 		<field name="tongtien" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="tongtien"/>
@@ -146,18 +147,18 @@ GROUP by MONTH(cb.NgayKhoiHanh)]]>
 		<band height="231" splitType="Stretch">
 			<pieChart>
 				<chart evaluationTime="Report">
-					<reportElement x="0" y="0" width="280" height="230" uuid="614147ec-7ec3-43df-9046-40a7fab5cd4b"/>
+					<reportElement x="0" y="0" width="280" height="230" uuid="eb4a737b-cf5d-4dc1-887d-4499cb9fe7d7"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
 				<pieDataset>
 					<dataset>
-						<datasetRun subDataset="piechar" uuid="82467191-9050-489f-98a3-78a7f6a4c11a"/>
+						<datasetRun subDataset="piechar" uuid="9432e490-e40a-4f64-804e-561754556c51"/>
 					</dataset>
-					<keyExpression><![CDATA[($F{loaihk}.booleanValue() ? "VIP" : "Economic")]]></keyExpression>
+					<keyExpression><![CDATA[($F{loaihk}.booleanValue() ? "Người  Lon" : "Trẻ Em")]]></keyExpression>
 					<valueExpression><![CDATA[$F{sl}]]></valueExpression>
-					<labelExpression><![CDATA[($F{loaihk}.booleanValue() ? "VIP" : "Economic")]]></labelExpression>
+					<labelExpression><![CDATA[($F{loaihk}.booleanValue() ? "Người  Lon" : "Trẻ Em")]]></labelExpression>
 				</pieDataset>
 				<piePlot>
 					<plot/>
@@ -165,18 +166,18 @@ GROUP by MONTH(cb.NgayKhoiHanh)]]>
 				</piePlot>
 			</pieChart>
 			<staticText>
-				<reportElement x="340" y="40" width="204" height="30" uuid="e08ed205-f9ec-4b43-a3d6-68077121dcda"/>
+				<reportElement x="280" y="40" width="264" height="30" uuid="e08ed205-f9ec-4b43-a3d6-68077121dcda"/>
 				<textElement>
 					<font fontName="Arial" size="16"/>
 				</textElement>
-				<text><![CDATA[Số lượng hành khách đặt vé]]></text>
+				<text><![CDATA[Tỉ lệ hành khách người lớn và trẻ em]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="340" y="80" width="204" height="70" uuid="cf73f703-fb15-49ee-80b2-4fab7a072b20"/>
+				<reportElement x="281" y="80" width="263" height="70" uuid="cf73f703-fb15-49ee-80b2-4fab7a072b20"/>
 				<textElement>
 					<font fontName="Arial" size="14"/>
 				</textElement>
-				<text><![CDATA[Tóm tắt số vé đã đặt của từng loại khách hàng gồm khách VIP và Economic.]]></text>
+				<text><![CDATA[Tóm tắt số vé đã đặt của từng loại khách hàng gồm khách Người lớn và Trẻ Em.]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -204,17 +205,17 @@ GROUP by MONTH(cb.NgayKhoiHanh)]]>
 			</staticText>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="0" y="10" width="280" height="260" uuid="396c1c21-6671-4d46-844b-7b64ced423f6"/>
+					<reportElement x="0" y="10" width="280" height="260" uuid="684188b5-3510-48e9-9a41-42cd4300a877"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
 				<categoryDataset>
 					<dataset>
-						<datasetRun subDataset="linechar" uuid="82f67da5-2c29-4887-b7c0-6881bbf3a4ae"/>
+						<datasetRun subDataset="linechar" uuid="997229e9-81ba-4796-9d27-8523386c6e6e"/>
 					</dataset>
 					<categorySeries>
-						<seriesExpression><![CDATA[($F{LoaiHK}.booleanValue() ? "VIP" : "Economic")]]></seriesExpression>
+						<seriesExpression><![CDATA[($F{LoaiVe}.booleanValue() ? "VIP" : "Economic")]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{thang}]]></categoryExpression>
 						<valueExpression><![CDATA[$F{tongtien}]]></valueExpression>
 						<labelExpression><![CDATA["hello"]]></labelExpression>
@@ -239,7 +240,7 @@ GROUP by MONTH(cb.NgayKhoiHanh)]]>
 					<property name="com.jaspersoft.studio.components.autoresize.next" value="true"/>
 					<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
 				</reportElement>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="Blank">
 					<datasetRun subDataset="table" uuid="92fd945a-1397-46b6-b6af-79544e65c04a">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
