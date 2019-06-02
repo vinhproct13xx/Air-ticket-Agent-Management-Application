@@ -171,7 +171,7 @@ public class DanhSachChuyenBayController implements Initializable {
          if ( ctChuyenBay.getMaVe() == null ) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi rồi ");
-                alert.setContentText("phải điền dủ thông tin :) ");
+                alert.setContentText("Vui lòng chọn chuyến bay :) ");
                 alert.showAndWait();
             }
         ctChuyenBay = table.getSelectionModel().getSelectedItem();
