@@ -44,21 +44,23 @@ BEGIN
   
     if(@loaive = 1 )
         BEGIN
-            SELECT  cb.MaCB,cb.GioKhoiHanh,cb.ThoiGianBay,cb.GiaVe,hmb.TenHMB,v.MaVe
+            SELECT  cb.MaCB,cb.GioKhoiHanh,cb.ThoiGianBay,cb.GiaVe,hmb.TenHMB
             from ChuyenBay cb,Ve v, HangMayBay hmb
             where cb.MaHMB = hmb.MaHMB AND  cb.MaCB = v.MaCB and cb.DiemKhoiHanh = @diemkh and cb.DiemDen = @diemden  and NgayKhoiHanh = @ngaykh 
             and v.TinhTrang = 0 and cb.SoGheVipTrong >= @sove and @loaive = v.LoaiVe
+            GROUP by cb.MaCB,cb.GioKhoiHanh,cb.ThoiGianBay,cb.GiaVe,hmb.TenHMB
         END
     else 
         BEGIN
-            SELECT  cb.MaCB,cb.GioKhoiHanh,cb.ThoiGianBay,cb.GiaVe,hmb.TenHMB,v.MaVe
+            SELECT  cb.MaCB,cb.GioKhoiHanh,cb.ThoiGianBay,cb.GiaVe,hmb.TenHMB
             from ChuyenBay cb,Ve v, HangMayBay hmb
             where cb.MaHMB = hmb.MaHMB AND  cb.MaCB = v.MaCB and DiemKhoiHanh = @diemkh and cb.DiemDen = @diemden  and NgayKhoiHanh = @ngaykh 
             and v.TinhTrang = 0 and cb.SoGheThuongTrong >= @sove and @loaive = v.LoaiVe
+            GROUP by cb.MaCB, cb.GioKhoiHanh,cb.ThoiGianBay,cb.GiaVe,hmb.TenHMB
         END
 END;
              
--- exec danhsachchuyenbay 'Ha Noi','Ha Noi',1,1,'2019-06-1'
+exec danhsachchuyenbay 'Ha Noi','Ha Noi',1,1,'2019-06-1'
 
 go
 alter PROC insertVe
@@ -136,23 +138,25 @@ AS
 BEGIN
     if(@loaive = 1 )
         BEGIN
-            SELECT  cb.MaCB,cb.GioKhoiHanh,cb.ThoiGianBay,cb.GiaVe,hmb.TenHMB,v.MaVe
+            SELECT  cb.MaCB,cb.GioKhoiHanh,cb.ThoiGianBay,cb.GiaVe,hmb.TenHMB
             from ChuyenBay cb,Ve v, HangMayBay hmb
             where   cb.MaHMB = hmb.MaHMB AND  cb.MaCB = v.MaCB 
                 and DiemKhoiHanh = @diemkh and NgayKhoiHanh = @ngaykh 
                 and cb.DiemDen = @diemden 
                 and cb.SoGheVipTrong >= @sove and @loaive = v.LoaiVe and hmb.TenHMB = @hangmb
                 and v.TinhTrang = 0
+            GROUP by cb.MaCB,cb.GioKhoiHanh,cb.ThoiGianBay,cb.GiaVe,hmb.TenHMB
         END
     else 
         BEGIN
-            SELECT  cb.MaCB,cb.GioKhoiHanh,cb.ThoiGianBay,cb.GiaVe,hmb.TenHMB,v.MaVe
+            SELECT  cb.MaCB,cb.GioKhoiHanh,cb.ThoiGianBay,cb.GiaVe,hmb.TenHMB
             from ChuyenBay cb,Ve v, HangMayBay hmb
             where   cb.MaHMB = hmb.MaHMB AND  cb.MaCB = v.MaCB 
                 and DiemKhoiHanh = @diemkh and NgayKhoiHanh = @ngaykh 
                 and cb.DiemDen = @diemden 
                 and cb.SoGheThuongTrong >= @sove and @loaive = v.LoaiVe and hmb.TenHMB = @hangmb
                 and v.TinhTrang = 0
+            GROUP by cb.MaCB,cb.GioKhoiHanh,cb.ThoiGianBay,cb.GiaVe,hmb.TenHMB
         END
 END;
 
