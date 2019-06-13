@@ -95,7 +95,7 @@ public class TaoChuyenBayDAO
     }
      
      public void addChuyenBay(TaoChuyenBay tcb)throws SQLException{
-         String sql ="exec addChuyenBay '"+tcb.getMaCB()+"','"+tcb.getMaHMB()+"',N'"+tcb.getDiemKhoiHanh()+"',N'"+tcb.getDiemDen()+"','"+tcb.getSanBayDi()+"','"+tcb.getSanBayDen()+"','"+tcb.getNgayKhoiHanh()+"',"+tcb.getThoiGianBay()+",'"+tcb.getGioKhoiHanh()+"',"+Double.parseDouble(tcb.getGiaVe());
+         String sql ="exec addChuyenBay '"+tcb.getMaHMB()+"',N'"+tcb.getDiemKhoiHanh()+"',N'"+tcb.getDiemDen()+"','"+tcb.getSanBayDi()+"','"+tcb.getSanBayDen()+"','"+tcb.getNgayKhoiHanh()+"',"+tcb.getThoiGianBay()+",'"+tcb.getGioKhoiHanh()+"',"+Double.parseDouble(tcb.getGiaVe());
          System.out.println(sql);
         try {
             int stmt = DBConnect.dbExcuteQuery(sql);

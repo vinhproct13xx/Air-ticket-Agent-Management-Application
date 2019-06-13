@@ -117,15 +117,23 @@ public class TaoChuyenBayController implements Initializable {
     private JFXTextField tfSBDi;
     @FXML
     private JFXTextField tfSBDen;
+    @FXML
+    private Label lbThongBao;
+    @FXML
+    private JFXButton tfXem;
     public TaoChuyenBayController() {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb){
         //TODO
+        lbThongBao.setVisible(false);
+        tfMaCB.setEditable(false);
         tfSBDi.setEditable(false);
         tfSBDen.setEditable(false);
         btnSua.setDisable(true);
         btnXoa.setDisable(true);
+        tpGioKhoiHanh.setEditable(false);
+        dpNgayKhoiHanh.setEditable(false);
         setCombobox();
         try{
         LoadData();
@@ -236,9 +244,22 @@ public class TaoChuyenBayController implements Initializable {
             else if (tcb.getDiemDen().equals("Đà Nẵng"))
                 cbDiemDen.getSelectionModel().select(2);
             else cbDiemDen.getSelectionModel().select(3);
-            
-            tfSBDi.setText(String.valueOf(tcb.getSanBayDi()));
-            tfSBDen.setText(String.valueOf(tcb.getSanBayDen()));
+            if(tcb.getSanBayDi().equals("NB"))
+                tfSBDi.setText("Nội bài");
+            else if (tcb.getSanBayDi().equals("DN"))
+                   tfSBDi.setText("Đà Nẵng");
+            else if (tcb.getSanBayDi().equals("PB"))
+                   tfSBDi.setText("Phú Bài");
+            else tfSBDi.setText("Tân Sơn Nhất");
+            if(tcb.getSanBayDen().equals("NB"))
+                tfSBDen.setText("Nội bài");
+            else if (tcb.getSanBayDen().equals("DN"))
+                   tfSBDen.setText("Đà Nẵng");
+            else if (tcb.getSanBayDen().equals("PB"))
+                   tfSBDen.setText("Phú Bài");
+            else tfSBDen.setText("Tân Sơn Nhất");
+//            tfSBDi.setText(String.valueOf(tcb.getSanBayDi()));
+//            tfSBDen.setText(String.valueOf(tcb.getSanBayDen()));
             dpNgayKhoiHanh.setValue(LocalDate.parse(tcb.getNgayKhoiHanh().toString()));
             tfThoiGianBay.setText(String.valueOf(tcb.getThoiGianBay()));
             tpGioKhoiHanh.setValue(LocalTime.parse(tcb.getGioKhoiHanh().toString()));
@@ -249,6 +270,24 @@ public class TaoChuyenBayController implements Initializable {
     @FXML
     private void btnThemClick(ActionEvent event) {
         TaoChuyenBay tcb=new TaoChuyenBay();
+        if(checkNull()==false)
+        {
+            lbThongBao.setText("Vui lòng nhập đầy đủ!!");
+            lbThongBao.setVisible(true);
+            return;
+        }
+        if(checkNumberInt(tfThoiGianBay.getText())==false)
+        {
+            lbThongBao.setText("Vui lòng nhập Thời gian bay là số nguyên!!");
+            lbThongBao.setVisible(true);
+            return;
+        }
+        if (checkNumberInt(tfGiaVe.getText())==false)
+        {
+            lbThongBao.setText("Vui lòng nhập Giá vé là số nguyên!!");
+            lbThongBao.setVisible(true);
+            return;
+        }
         try {
             tcb.setMaCB(tfMaCB.getText());
             if(String.valueOf(cbHangMB.getValue()).equals("Vietnam Airlines"))
@@ -294,10 +333,8 @@ public class TaoChuyenBayController implements Initializable {
             btnThem.setDisable(false);
             btnSua.setDisable(true);
             btnXoa.setDisable(true);
-            tfMaCB.setEditable(true);
+            tfMaCB.setEditable(false);
             tfMaCB.setText("");
-            tfSBDi.setText("");
-            tfSBDen.setText("");
             tfGiaVe.setText("");
             tfThoiGianBay.setText("");
             btnThem.setDisable(false);
@@ -314,6 +351,24 @@ public class TaoChuyenBayController implements Initializable {
     @FXML
     private void btnSuaClick(ActionEvent event) {
         TaoChuyenBay tcb=new TaoChuyenBay();
+        if(checkNull()==false)
+        {
+            lbThongBao.setText("Vui lòng nhập đầy đủ!!");
+            lbThongBao.setVisible(true);
+            return;
+        }
+        if(checkNumberInt(tfThoiGianBay.getText())==false)
+        {
+            lbThongBao.setText("Vui lòng nhập Thời gian bay là số nguyên!!");
+            lbThongBao.setVisible(true);
+            return;
+        }
+        if (checkNumberInt(tfGiaVe.getText())==false)
+        {
+            lbThongBao.setText("Vui lòng nhập Giá vé là số nguyên!!");
+            lbThongBao.setVisible(true);
+            return;
+        }
         try {
             tcb.setMaCB(tfMaCB.getText());
             if(String.valueOf(cbHangMB.getValue()).equals("Vietnam Airlines"))
@@ -359,10 +414,8 @@ public class TaoChuyenBayController implements Initializable {
             btnThem.setDisable(false);
             btnSua.setDisable(true);
             btnXoa.setDisable(true);
-            tfMaCB.setEditable(true);
+            tfMaCB.setEditable(false);
             tfMaCB.setText("");
-            tfSBDi.setText("");
-            tfSBDen.setText("");
             tfGiaVe.setText("");
             tfThoiGianBay.setText("");
             btnThem.setDisable(false);
@@ -395,10 +448,8 @@ public class TaoChuyenBayController implements Initializable {
             btnSua.setDisable(true);
             btnXoa.setDisable(true);
             LoadData();
-            tfMaCB.setEditable(true);
+            tfMaCB.setEditable(false);
             tfMaCB.setText("");
-            tfSBDi.setText("");
-            tfSBDen.setText("");
             tfGiaVe.setText("");
             tfThoiGianBay.setText("");
             btnThem.setDisable(false);
@@ -419,8 +470,6 @@ public class TaoChuyenBayController implements Initializable {
         btnXoa.setDisable(true);
         tfMaCB.setEditable(true);
         tfMaCB.setText("");
-        tfSBDi.setText("");
-        tfSBDen.setText("");
         tfGiaVe.setText("");
         tfThoiGianBay.setText("");
         btnThem.setDisable(false);
@@ -461,4 +510,40 @@ public class TaoChuyenBayController implements Initializable {
         else tfSBDen.setText("Phú Bài");
     }
     
+    private boolean checkNull(){
+        LocalDate s=dpNgayKhoiHanh.getValue();
+        LocalTime x=tpGioKhoiHanh.getValue();
+        if(tfThoiGianBay.getText().equals(""))
+            return false;
+        if(tfGiaVe.getText().equals(""))
+            return false;
+        if(s==null)
+            return false;
+        if(x==null)
+            return false;
+        return true;
+    }
+    private boolean checkNumberInt(String s){
+        try {
+                Integer.parseInt(s);}
+            catch (NumberFormatException e) {
+            return false;
+        }
+            return true;
+    }
+    
+    private boolean checkNumberDouble(String s){
+        try {
+                Double.parseDouble(s);
+        }
+            catch (NumberFormatException e) {
+            return false;
+        }
+            return true;
+    }
+
+    @FXML
+    private void tfXemClick(ActionEvent event) throws SQLException{
+        LoadData();
+    }
 }
