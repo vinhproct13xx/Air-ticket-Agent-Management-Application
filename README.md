@@ -1,4 +1,4 @@
-# Java
+# Java - Air ticket Agent Management Application
 IS216.J21
 Đồ án: Quản lý bán vé máy bay
 Ứng dụng quản lý bán vé máy bay giúp các đại lý có thể bán vé và quản lý vé 1 cách dễ dàng và tiện lợi nhất.
